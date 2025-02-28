@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fake-news-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fake-news-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fake-news
+  template:
+    metadata:
+      labels:
+        app: fake-news
+    spec:
+      containers:
+        - name: fake-news-container
+          image: your-dockerhub-username/fake-news-api:latest  # Replace with your actual DockerHub username
+          imagePullPolicy: Always  # Change to "Never" if using a locally built image
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: model-storage
+              mountPath: /app/model_data  # Stores model files for retraining
+            - name: feedback-storage
+              mountPath: /app/backend/data  # Stores feedback data
+          env:
+            - name: GOOGLE_FACT_CHECK_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-keys
+                  key: google_api_key
+            - name: PYTHONPATH
+              value: "/app/backend"
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          livenessProbe:  # Ensures the app is running
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:  # Ensures app is ready before traffic is sent
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 3
+      volumes:
+        - name: model-storage
+          persistentVolumeClaim:
+            claimName: fake-news-pvc
+        - name: feedback-storage
+          persistentVolumeClaim:
+            claimName: fake-news-pvc  # Reusing PVC for feedback data
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fake-news-service
+spec:
+  selector:
+    app: fake-news
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: LoadBalancer

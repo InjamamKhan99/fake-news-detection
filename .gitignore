@@ -1,0 +1,63 @@
+# Ignore Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.log
+
+# Ignore virtual environment
+venv/
+env/
+
+# Ignore model and dataset files
+*.pkl
+*.h5
+*.onnx
+*.joblib
+*.pt
+*.tflite
+dataset/
+feedback_data.csv  # Ignore if dynamically generated
+
+# Ignore environment variables and credentials
+.env
+*.secret
+config.json
+credentials.json
+
+# Ignore logs and temporary files
+*.log
+logs/
+debug.log
+nohup.out
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore FastAPI static and cache files
+staticfiles/
+mediafiles/
+
+# Ignore Node.js dependencies (if any frontend enhancements)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Ignore Docker and Kubernetes build artifacts
+docker-compose.override.yml
+*.dockerfile
+*.tar
+*.img
+*.bin
+docker-*
+.kubernetes/
+
+# Ignore VS Code and PyCharm project files
+.vscode/
+.idea/
+*.iml
+
+# Ignore system files
+.DS_Store
+Thumbs.db
