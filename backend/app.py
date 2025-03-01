@@ -6,7 +6,7 @@ import torch
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from transformers import DistilBertTokenizer, DistilBertModel
-from fact_checking import google_fact_check
+from fact_checking import fact_check_news  # Updated import
 from source_credibility import check_source_credibility
 from train_model import retrain_model  # Import retraining function
 
@@ -47,7 +47,7 @@ def predict(news: NewsRequest):
 @app.post("/fact-check")
 def fact_check(news: NewsRequest):
     """Uses Google Fact Check API to verify news claims."""
-    return google_fact_check(news.news_text)
+    return fact_check_news(news.news_text)  # Updated function call
 
 @app.post("/source-credibility")
 def source_credibility(news: NewsRequest):

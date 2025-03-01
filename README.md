@@ -6,15 +6,15 @@ This project is a Fake News Detection System that uses a hybrid model (BERT embe
 
 Features
 
-.Fake News Detection using a trained ML model
+Fake News Detection using a trained ML model
 
-.Real-time Fact-Checking using Google Fact Check API
+Real-time Fact-Checking using Google Fact Check API
 
-.Feedback Mechanism for users to improve model accuracy
+Feedback Mechanism for users to improve model accuracy
 
-.Automated Model Retraining when sufficient feedback data is collected
+Automated Model Retraining when sufficient feedback data is collected
 
-.Docker & Kubernetes Support for easy deployment
+Docker & Kubernetes Support for easy deployment
 
 Project Structure
 
@@ -47,7 +47,7 @@ Installation & Setup
 1️⃣ Clone the Repository
 
 git clone https://github.com/your-repo/fake-news-detection.git
-git clone https://github.com/InjamamKhan99/fake-news-detection.git
+git clone https://github.com/InjamamKhan99/fake-news-detection.git 
 cd fake-news-detection
 
 2️⃣ Set Up Virtual Environment (Recommended)
@@ -82,3 +82,13 @@ docker build -t fake-news-api .
 docker run -p 8000:8000 fake-news-api
 
 Deploy with Kubernetes
+
+kubectl apply -f deployment/kubernetes.yaml
+
+Future Improvements
+
+Improve model accuracy with more data
+
+Enhance frontend UI/UX
+
+Add support for additional fact-checking APIs

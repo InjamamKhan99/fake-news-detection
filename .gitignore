@@ -9,6 +9,7 @@ __pycache__/
 # Ignore virtual environment
 venv/
 env/
+.venv/
 
 # Ignore model and dataset files
 *.pkl
@@ -16,9 +17,11 @@ env/
 *.onnx
 *.joblib
 *.pt
+*.ckpt
 *.tflite
 dataset/
 feedback_data.csv  # Ignore if dynamically generated
+.cache/
 
 # Ignore environment variables and credentials
 .env
@@ -31,6 +34,8 @@ credentials.json
 logs/
 debug.log
 nohup.out
+*.tmp
+*.swp
 
 # Ignore Jupyter Notebook checkpoints
 .ipynb_checkpoints/
@@ -39,8 +44,10 @@ nohup.out
 staticfiles/
 mediafiles/
 
-# Ignore Node.js dependencies (if any frontend enhancements)
+# Ignore frontend build artifacts (if any enhancements)
 node_modules/
+dist/
+build/
 npm-debug.log
 yarn-error.log
 
@@ -53,7 +60,7 @@ docker-compose.override.yml
 docker-*
 .kubernetes/
 
-# Ignore VS Code and PyCharm project files
+# Ignore VS Code, PyCharm, and IDE-specific files
 .vscode/
 .idea/
 *.iml
