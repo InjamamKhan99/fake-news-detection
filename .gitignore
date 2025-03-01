@@ -11,7 +11,7 @@ venv/
 env/
 .venv/
 
-# Ignore model and dataset files
+# Ignore model and generated files
 *.pkl
 *.h5
 *.onnx
@@ -19,9 +19,10 @@ env/
 *.pt
 *.ckpt
 *.tflite
-dataset/
-feedback_data.csv  # Ignore if dynamically generated
 .cache/
+
+# Ignore dynamically generated feedback data
+feedback_data.csv
 
 # Ignore environment variables and credentials
 .env

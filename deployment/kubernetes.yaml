@@ -1,13 +1,25 @@
-apiVersion: v1
+apiVersion: v1 
 kind: PersistentVolumeClaim
 metadata:
-  name: fake-news-pvc
+  name: fake-news-model-pvc
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
+
+---
+apiVersion: v1 
+kind: PersistentVolumeClaim
+metadata:
+  name: fake-news-feedback-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi  # Feedback data needs less storage
 
 ---
 apiVersion: apps/v1
@@ -34,7 +46,7 @@ spec:
             - name: model-storage
               mountPath: /app/model_data  # Stores model files for retraining
             - name: feedback-storage
-              mountPath: /app/backend/data  # Stores feedback data
+              mountPath: /app/backend/  # Stores feedback_data.csv
           env:
             - name: GOOGLE_FACT_CHECK_API_KEY
               valueFrom:
@@ -65,10 +77,10 @@ spec:
       volumes:
         - name: model-storage
           persistentVolumeClaim:
-            claimName: fake-news-pvc
+            claimName: fake-news-model-pvc
         - name: feedback-storage
           persistentVolumeClaim:
-            claimName: fake-news-pvc  # Reusing PVC for feedback data
+            claimName: fake-news-feedback-pvc
 
 ---
 apiVersion: v1

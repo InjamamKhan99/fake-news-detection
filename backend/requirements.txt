@@ -14,3 +14,6 @@ lxml==5.1.0
 python-dotenv==1.0.1
 google-auth==2.27.0
 google-auth-oauthlib==1.2.0
+tqdm==4.66.2  # For progress tracking
+protobuf==4.25.3  # Avoids compatibility issues
+sentencepiece==0.1.99  # Optional, for tokenizer support

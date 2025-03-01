@@ -1,4 +1,4 @@
-import os
+import os 
 import requests
 import logging
 from json import JSONDecodeError
@@ -34,20 +34,31 @@ def fact_check_news(news_text):
 
         claims = data.get("claims", [])
         if not claims:
+            logging.info("No relevant fact-checks found.")
             return {"result": "No relevant fact-checks found."}
 
         # Extract the most relevant fact-check
         claim = claims[0]
         text = claim.get("text", "No claim text available.")
         claimant = claim.get("claimant", "Unknown source")
-        rating = claim.get("claimReview", [{}])[0].get("textualRating", "No rating available")
         
+        # Check if claimReview exists and has at least one element
+        if "claimReview" in claim and claim["claimReview"]:
+            review = claim["claimReview"][0]
+            rating = review.get("textualRating", "No rating available")
+            source = review.get("publisher", {}).get("name", "Unknown publisher")
+            review_url = review.get("url", "No URL available")
+        else:
+            rating, source, review_url = "No rating available", "Unknown publisher", "No URL available"
+
         return {
             "query": news_text,
             "fact_check": {
                 "claim": text,
                 "source": claimant,
-                "rating": rating
+                "rating": rating,
+                "fact_check_source": source,
+                "fact_check_url": review_url
             }
         }
     except requests.Timeout:
