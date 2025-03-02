@@ -4,10 +4,10 @@ import joblib
 import logging
 import warnings
 import os
+import torch
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 from transformers import DistilBertTokenizer, DistilBertModel
-import torch
 from tqdm import tqdm  # For progress tracking
 
 # Set up logging
@@ -15,6 +15,10 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 
 # Suppress FutureWarnings
 warnings.simplefilter(action="ignore", category=FutureWarning)
+
+# Detect device (GPU if available, else CPU)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+logging.info(f"Using device: {device}")
 
 # Load datasets
 true_df = pd.read_csv(r"dataset/true.csv")
@@ -46,14 +50,14 @@ df["text"] = df["text"].astype(str).fillna("")
 
 # Load BERT tokenizer and model
 tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
-bert_model = DistilBertModel.from_pretrained("distilbert-base-uncased")
+bert_model = DistilBertModel.from_pretrained("distilbert-base-uncased").to(device)
 
 def get_bert_embeddings(text_list):
-    """Batch process text inputs to generate BERT embeddings."""
-    inputs = tokenizer(text_list, padding=True, truncation=True, max_length=512, return_tensors="pt")
+    """Batch process text inputs to generate BERT embeddings on GPU if available."""
+    inputs = tokenizer(text_list, padding=True, truncation=True, max_length=512, return_tensors="pt").to(device)
     with torch.no_grad():
         outputs = bert_model(**inputs)
-    return outputs.last_hidden_state[:, 0, :].numpy()
+    return outputs.last_hidden_state[:, 0, :].cpu().numpy()  # Move back to CPU for processing
 
 # Process text in batches
 batch_size = 16

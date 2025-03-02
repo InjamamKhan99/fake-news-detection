@@ -9,9 +9,9 @@ ENV PYTHONPATH="/app/backend"
 # Copy project files
 COPY backend/requirements.txt /app/requirements.txt
 COPY backend /app/backend
-COPY backend/dataset /app/backend/dataset  # Ensure dataset is included
+COPY backend/dataset /app/backend/dataset  
 COPY frontend /app/frontend
-COPY .env /app/  # Copy .env file
+COPY .env /app/  
 
 # Install dependencies
 RUN pip install --no-cache-dir -r /app/requirements.txt
