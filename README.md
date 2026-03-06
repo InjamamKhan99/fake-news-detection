@@ -32,36 +32,35 @@ The system combines **BERT embeddings**, **Random Forest classifier**, and **met
 
 ## Project Structure
 
-
+```
 fake_news_detection_system/
 │
 ├── backend/
-│ ├── app.py
-│ ├── dataset/
-│ │ ├── fake.csv
-│ │ └── true.csv
-│ ├── fact_checking.py
-│ ├── source_credibility.py
-│ ├── train_model.py
-│ ├── feedback_data.csv
-│ ├── one_hot_encoder.pkl
-│ ├── hybrid_fake_news_model.pkl
-│ └── requirements.txt
+│   ├── app.py
+│   ├── dataset/
+│   │   ├── fake.csv
+│   │   └── true.csv
+│   ├── fact_checking.py
+│   ├── source_credibility.py
+│   ├── train_model.py
+│   ├── feedback_data.csv
+│   ├── one_hot_encoder.pkl
+│   ├── hybrid_fake_news_model.pkl
+│   └── requirements.txt
 │
 ├── frontend/
-│ ├── index.html
-│ ├── style.css
-│ └── script.js
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
 │
 ├── deployment/
-│ ├── Dockerfile
-│ └── kubernetes.yaml
+│   ├── Dockerfile
+│   └── kubernetes.yaml
 │
 ├── .env
 ├── .gitignore
 └── README.md
----
-
+```
 ## Installation & Setup
 
 ### 1️. Clone the Repository
@@ -83,14 +82,19 @@ source venv/bin/activate
 python -m venv venv
 venv\Scripts\activate
 ```
-3️. Install Dependencies
+### 3️. Install Dependencies
+
+```bash
 pip install -r backend/requirements.txt
-4️. Set Up Environment Variables
+```
+### 4️. Set Up Environment Variables
 
-Create a .env file in the project root:
+Create a `.env` file in the project root:
 
+```
 GOOGLE_FACT_CHECK_API_KEY=your-google-api-key
 PYTHONPATH=/app/backend
+```
 5️. Run the Backend
 cd backend
 uvicorn app:app --host 0.0.0.0 --port 8000 --reload
@@ -116,7 +120,3 @@ Author
 Injamam Khan
 B.Tech Computer Science and Engineering
 Machine Learning & Data Science Enthusiast
-
-
-
-Injamam B.Tech Computer Science and EngineeriMachine Learning & Data Science En
