@@ -60,8 +60,6 @@ fake_news_detection_system/
 ├── .env
 ├── .gitignore
 └── README.md
-
-
 ---
 
 ## Installation & Setup
@@ -71,13 +69,20 @@ fake_news_detection_system/
 ```bash
 git clone https://github.com/InjamamKhan99/fake-news-detection.git
 cd fake-news-detection
-2️. Create Virtual Environment
-macOS / Linux
+```
+### 2️. Create Virtual Environment
+
+#### macOS / Linux
+```bash
 python3 -m venv venv
 source venv/bin/activate
-Windows
+```
+
+#### Windows
+```bash
 python -m venv venv
 venv\Scripts\activate
+```
 3️. Install Dependencies
 pip install -r backend/requirements.txt
 4️. Set Up Environment Variables
