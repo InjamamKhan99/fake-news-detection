@@ -89,9 +89,9 @@ pip install -r backend/requirements.txt
 ```
 ### 4️. Set Up Environment Variables
 
-Create a `.env` file in the project root:
+Create a `.env` file in the project root and add the following:
 
-```
+```env
 GOOGLE_FACT_CHECK_API_KEY=your-google-api-key
 PYTHONPATH=/app/backend
 ```
